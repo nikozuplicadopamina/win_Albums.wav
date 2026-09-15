@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="musicOs — win_Albums.wav: recomendaciones de álbumes con estética Windows 98." />
+  <title>musicOs - win_Albums.wav</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="desktop">
+
+    <!-- Albumes -->
+    <main class="explorer">
+      <div class="title-bar">
+        <svg class="title-bar-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M1 3h5l2 2h7v8H1z" fill="#FFD461" stroke="#000" stroke-width="1" />
+        </svg>
+        <span class="title-bar-text">musicOs - win_Albums.wav - Explorador de Windows</span>
+        <div class="title-bar-controls">
+          <button type="button" aria-label="Minimizar">
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+              <path d="M1.5 7.2h7" stroke="#000" stroke-width="1" />
+            </svg>
+          </button>
+          <button type="button" aria-label="Maximizar">
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+              <rect x="1.6" y="1.6" width="6.8" height="6.8" fill="none" stroke="#000" stroke-width="1" />
+            </svg>
+          </button>
+          <button type="button" class="close" aria-label="Cerrar">
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+              <path d="M1.5 1.5L8.5 8.5M8.5 1.5L1.5 8.5" stroke="#000" stroke-width="1.4" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <nav class="menu-bar" aria-label="Menú de aplicación">
+        <span class="menu-item">Archivo</span>
+        <span class="menu-item">Edición</span>
+        <span class="menu-item">Ver</span>
+        <span class="menu-item">Ayuda</span>
+      </nav>
+
+      <div class="toolbar">
+        <svg class="dir-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M1 3h5l2 2h7v8H1z" fill="#FFD461" stroke="#000" stroke-width="1" />
+        </svg>
+        <span class="toolbar-label">Dirección</span>
+        <div class="address-box" id="address">C:\</div>
+        <span class="toolbar-page" id="page-size">9 por página</span>
+      </div>
+
+      <!-- Cabecera del sitio -->
+      <div class="site-header">
+        <div class="txt">
+          <h1 class="site-title">music<span class="os">Os</span></h1>
+          <p class="site-desc">
+              Pequeño sitio donde te recomiendo música que me encanta, escucha desde independiente, rap, rock, reggaeton y mucho más. Semanalmente estaré actualizando la página dependiendo de los albumes que haya escuchado o que directamente ya conozca, pasate y disfruta ;)
+          </p>
+        </div>
+      </div>
+
+      <div class="content" id="albums">
+        <span class="loading" id="loading">Conectando con albums.json...</span>
+      </div>
+
+      <!-- Paginación estilo google (ya no quiero programar más) -->
+      <nav class="pager" id="pager" aria-label="Paginación"></nav>
+
+      <div class="status-bar">
+        <div class="status-panel" id="status-count">0 objeto(s)</div>
+        <div class="status-panel" id="status-page">página 1 de 1</div>
+      </div>
+    </main>
+
+    <!-- Changelog -->
+    <aside class="changelog" aria-label="Notas de cambios">
+      <div class="title-bar">
+        <svg class="title-bar-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <rect x="1" y="1" width="14" height="14" fill="#fff" stroke="#000" stroke-width="1" />
+          <path d="M4 4h8M4 7h8M4 10h5" stroke="#000" stroke-width="1" />
+        </svg>
+        <span class="title-bar-text">CHANGELOG.txt - Bloc de notas</span>
+        <div class="title-bar-controls">
+          <button type="button" aria-label="Minimizar">
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+              <path d="M1.5 7.2h7" stroke="#000" stroke-width="1" />
+            </svg>
+          </button>
+          <button type="button" aria-label="Maximizar">
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+              <rect x="1.6" y="1.6" width="6.8" height="6.8" fill="none" stroke="#000" stroke-width="1" />
+            </svg>
+          </button>
+          <button type="button" class="close" aria-label="Cerrar">
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+              <path d="M1.5 1.5L8.5 8.5M8.5 1.5L1.5 8.5" stroke="#000" stroke-width="1.4" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <nav class="menu-bar" aria-label="Menú del bloc de notas">
+        <span class="menu-item">Archivo</span>
+        <span class="menu-item">Edición</span>
+        <span class="menu-item">Ayuda</span>
+      </nav>
+
+      <div class="toolbar">
+        <svg class="dir-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <rect x="1" y="1" width="14" height="14" fill="#fff" stroke="#000" stroke-width="1" />
+          <path d="M4 4h8M4 7h8M4 10h5" stroke="#000" stroke-width="1" />
+        </svg>
+        <span class="toolbar-label">Dirección</span>
+        <div class="address-box">C:\CHANGELOG.TXT</div>
+      </div>
+
+      <!-- Editable bruto, no se le olvide -->
+      <div class="content changelog-body">
+        <div class="edit-me">Pequeño Changelog sobre página, los cambios que haga serán minidocumentados aquí.</div>
+
+        <div class="changelog-entry">
+          <span class="ver" style="color:#008000">v0.1</span>
+          <span class="fecha">(15/09/2025) | Creacion</span>
+          <span class="texto">Traté de crear una página estilo Windows98 donde recomendaría música que me encanta. creé un sistema donde en un json agrego un album y este se proyecta en la página, estos en una cantidad de +9 albumes por página se reorganizarán automáticamente en otra.</span>
+        </div>
+
+      </div>
+
+      <div class="status-bar">
+        <div class="status-panel">1 entrada(s)</div>
+        <div class="status-panel status-rest">CHANGELOG.txt</div>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
