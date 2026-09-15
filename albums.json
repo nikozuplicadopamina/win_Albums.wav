@@ -1,0 +1,92 @@
+[
+  {
+    "titulo": "Roy",
+    "artista": "Nsqk",
+    "genero": "Alternativo",
+    "anio": 2022,
+    "color": "#947759",
+    "portada": "http://a1.mzstatic.com/r40/Music211/v4/49/b6/08/49b60819-8c38-57e3-3042-a7acf8f0da2a/190296021039_Cover.jpg",
+    "review": "Un Album debut un poco distinto, realmente aborda temas personales y sobre la etapa de los 20, simplemente el mejor album de Nsqk",
+    "link": "https://open.spotify.com/album/40hEXrrbfFrriCUTOw4uRh"
+  },
+  {
+    "titulo": "ATP",
+    "artista": "Nsqk",
+    "genero": "Urbano",
+    "anio": 2024,
+    "color": "#eb830c",
+    "portada": "https://a1.mzstatic.com/r40/Music221/v4/84/42/56/844256fd-6b43-9012-f46f-067b0cb1e08b/085365027428_Cover.jpg",
+    "review": "El segundo disco de estudio de Nsqk, uno de los mejores calificados por la comunidad tomando temas desde el desamor hasta la superacion personal, muy bueno",
+    "link": "https://open.spotify.com/intl-es/album/5YAMa7LhSMdWOs1dF93g4V"
+  },
+  {
+    "titulo": "La Máquina Persona",
+    "artista": "Méne",
+    "genero": "RnB",
+    "anio": 2023,
+    "color": "#3c4f29",
+    "portada": "https://a1.mzstatic.com/r40/Music221/v4/c9/e4/fa/c9e4fa3a-8af1-cc52-3edb-c72babd1473b/197338232330_Cover.jpg",
+    "review": "El album me ha cambiado la vida, no diré más",
+    "link": "https://open.spotify.com/intl-es/album/5PykOSttRwCyzb5cQIltEG"
+  },
+  {
+    "titulo": "DUNI",
+    "artista": "Pac0o",
+    "genero": "Pop",
+    "anio": 2025,
+    "color": "#3c4f29",
+    "portada": "https://a1.mzstatic.com/r40/Music211/v4/4a/9e/b1/4a9eb1a8-bab0-2bb6-05ca-c66349362e13/artwork.jpg",
+    "review": "MALDITO ALBUM HERMOSO00. Pac0o ha sido uno de mis mejores descubrimientos, y este album lo prueba, es uno de los albumes que más representa al amor en general, simplemente DUNI",
+    "link": "https://open.spotify.com/album/40zyijkx2F1iB0vJnPUhKQ"
+  },
+  {
+    "titulo": "TODO",
+    "artista": "Pac0o",
+    "genero": "rnb",
+    "anio": 2024,
+    "color": "#c967af",
+    "portada": "https://a1.mzstatic.com/r40/Music211/v4/b2/48/c9/b248c9ad-0429-2aeb-8786-aea64683458e/artwork.jpg",
+    "review": "El segundo disco de estudio de Nsqk, uno de los mejores calificados por la comunidad tomando temas desde el desamor hasta la superacion personal, muy bueno",
+    "link": "https://open.spotify.com/album/"
+  },
+  {
+    "titulo": "EL NUEVO SONIDO",
+    "artista": "Sinaka",
+    "genero": "reggaeton",
+    "anio": 2025,
+    "color": "#7662a8",
+    "portada": "https://a1.mzstatic.com/r40/Music211/v4/da/7c/2b/da7c2b83-b364-17f9-ddd5-98e1e796f974/199538459074.jpg",
+    "review": "El reggaeton chileno revivió la industria y sinaka es la prueba viva de esto, gracias sinaka",
+    "link": "https://open.spotify.com/intl-es/album/51BDztgpHNIIwixCGx3wku"
+  },
+  {
+    "titulo": "No Somos Iguales",
+    "artista": "Facebrooklyn",
+    "genero": "Urbano",
+    "anio": 2025,
+    "color": "#2e2e2e",
+    "portada": "https://a1.mzstatic.com/r40/Music221/v4/9a/c9/7f/9ac97fc7-c694-b657-837c-d53c211a413e/5021732954879.jpg",
+    "review": "Fue el 2do album que escuché en mi vida, realmente amo como parte el album en 2, donde pasa de fiesta a melancolia, definitivamente la industria está en buenas manos",
+    "link": "https://open.spotify.com/intl-es/album/6lbBaRx5ZVYaMW9zDJodhI"
+  },
+  {
+    "titulo": "I'M PART",
+    "artista": "Easykid",
+    "genero": "Urbano",
+    "anio": 2025,
+    "color": "#23382c",
+    "portada": "https://a1.mzstatic.com/r40/Music211/v4/d6/47/4b/d6474b65-69ef-22a7-2e51-6ab775f9c83e/0.jpg",
+    "review": "Es buen album, lleva la temática que llevaba easy desde hace tiempo, pero ahora trata de solidificarla con un nuevo sonido, muy buen album",
+    "link": "https://open.spotify.com/intl-es/album/2FaWRcWNTc2EhVJniu4t69"
+  },
+  {
+    "titulo": "LOS ANGELITOS",
+    "artista": "Saiko",
+    "genero": "Reggaeton",
+    "anio": 2026,
+    "color": "#47294f",
+    "portada": "https://a1.mzstatic.com/r40/Music221/v4/fc/d0/f5/fcd0f5fc-040f-6f57-5a20-3c82b49d4d72/196874513590.jpg",
+    "review": "El album de este tipo es raro, pero le hagarré un gustico duro, son contados los temas malos",
+    "link": "https://open.spotify.com/album/3nlnOHjbXkkcXnMVeO4Hs5"
+  }
+]
