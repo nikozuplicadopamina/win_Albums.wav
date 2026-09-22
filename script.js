@@ -60,7 +60,7 @@
     address.textContent = 'C:\\ALBUMS';
     statusCount.textContent = albums.length + ' objeto(s) cargado(s)';
     statusPage.textContent = 'página ' + currentPage + ' de ' + totalPages();
-    statusMsg.textContent = 'listo.';
+    if (statusMsg) statusMsg.textContent = 'listo.';
   }
 
   /* ---------- Pager estilo Google ---------- */
@@ -171,7 +171,7 @@
     address.textContent = 'C:\\';
     statusCount.textContent = '0 objeto(s)';
     statusPage.textContent = 'página 0 de 0';
-    statusMsg.textContent = 'error.';
+    if (statusMsg) statusMsg.textContent = 'error.';
 
     const box = document.createElement('section');
     box.className = 'msgbox';

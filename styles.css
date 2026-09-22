@@ -1,15 +1,3 @@
-/* ============================================================
-   win_Albums.wav / musicOs — Windows 98 CLASSIC
-   Paleta y biseles 3D auténticos de Windows 98.
-   Fuentes: MS Sans Serif (UI), Tahoma (títulos/menús),
-   Fixedsys (mono/rutas), Marlett (glifos de la barra de título).
-   ============================================================ */
-
-/* ---- Fuentes de sistema Win98 (sólo se usan si están instaladas) ----
-   - Marlett: glifos de los botones de barra de título.
-   - Fixedsys (bitmap, no incluida en Windows moderno): si no la tienes,
-     deja un archivo "fixedsys-excelsior.woff2" en la carpeta /fonts
-     para que se cargue; mientras tanto cae a Courier New.           */
 @font-face {
   font-family: 'Marlett Local';
   src: local('Marlett');
