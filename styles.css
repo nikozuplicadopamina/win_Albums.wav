@@ -62,7 +62,7 @@ body {
 }
 
 .explorer { flex: 1 1 auto; min-width: 0; }
-.changelog { flex: 0 0 320px; }
+.sidebar { flex: 0 0 320px; display: flex; flex-direction: column; gap: 14px; }
 
 /* ------------------------------------------------------------
    Biseles 3D clásicos (estructura real de Win98)
@@ -237,27 +237,19 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  padding-top: 9px;
 }
 
-/* ---------- Conjunto de álbumes nuevos (outline agrupado) ---------- */
-.album-set {
-  position: relative;
-  grid-column: span 2;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 10px 8px 8px;
-  outline: 2px solid #d83030;
-  outline-offset: 3px;
-}
+/* ---------- Etiqueta de álbum nuevo ---------- */
+.album.is-new { position: relative; }
 
-.album-set-badge {
+.nuevo-badge {
   position: absolute;
-  top: -11px;
-  left: -1px;
-  z-index: 1;
+  top: -9px;
+  left: 0;
+  z-index: 2;
   background: #d83030;
-  color: #ffffff;
+  color: var(--text);
   font-family: var(--font-title);
   font-weight: bold;
   font-size: 10px;
@@ -322,7 +314,7 @@ body {
 
 .album-review { margin-top: 5px; color: var(--text); }
 
-.album-footer { display: flex; justify-content: flex-end; }
+.album-footer { display: flex; justify-content: flex-end; margin-top: auto; }
 
 /* ---------- Botones clásicos ---------- */
 .btn,
@@ -446,6 +438,8 @@ body {
   display: flex;
   flex-direction: column;
   align-self: stretch;
+  flex: 1 1 auto;
+  min-height: 120px;
   box-shadow:
     inset -1px -1px 0 var(--surface-black),
     inset 1px 1px 0 var(--surface-hi),
@@ -495,6 +489,55 @@ body {
 
 .changelog-entry .texto { flex: 1 1 180%; }
 
+/* ---------- Ventana Spotify (player embebido) ---------- */
+.spotify {
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  box-shadow:
+    inset -1px -1px 0 var(--surface-black),
+    inset 1px 1px 0 var(--surface-hi),
+    inset -2px -2px 0 var(--surface-dark),
+    inset 2px 2px 0 var(--surface-mid);
+}
+
+/* El contenido no hace scroll propio: el player completo se ve de una vez */
+.spotify-body { padding: 8px; overflow: hidden; }
+
+/* Aviso corto, mismo recuadro punteado que usa el changelog */
+.playlist-note {
+  margin-bottom: 8px;
+  border: 1px dashed #999;
+  padding: 4px 8px;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 10.5px;
+}
+
+/* Pozo hundido clásico, igual que un control de Windows 98 */
+.embed-well {
+  padding: 3px;
+  background: var(--surface);
+  box-shadow:
+    inset -1px -1px 0 var(--surface-hi),
+    inset 1px 1px 0 var(--surface-black),
+    inset -2px -2px 0 var(--surface-dark),
+    inset 2px 2px 0 var(--surface-dark);
+}
+
+.spotify-embed {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: #121212;
+  /* Spotify va en otro dominio: no se puede pintar por dentro con CSS.
+     Este filtro lo acerca al gris de la página sin perder las portadas. */
+  filter: saturate(0.55) contrast(1.04);
+}
+
+.spotify-embed:hover { filter: saturate(0.8) contrast(1.04); }
+
 /* ---------- Message box de error ---------- */
 .msgbox {
   background: var(--surface);
@@ -532,18 +575,13 @@ body {
 @media (max-width: 900px) {
   body { padding: 0; }
   .desktop { flex-direction: column; gap: 0; }
-  .changelog { flex: 1 1 auto; width: 100%; order: 2; }
+  .sidebar { flex: 1 1 auto; width: 100%; order: 2; gap: 12px; }
   .explorer { width: 100%; order: 1; max-height: 100vh; }
 }
 
 @media (max-width: 640px) {
-  .grid { grid-template-columns: 1fr; }
-  .album-set {
-    grid-template-columns: 1fr;
-    grid-column: 1 / -1;
-    padding: 9px 6px 6px;
-    outline-offset: 2px;
-  }
+  .grid { grid-template-columns: 1fr; align-items: start; }
+  .album-footer { margin-top: 0; }
   .cover { width: 84px; height: 84px; }
   .title-bar-text { font-size: 10px; }
   .toolbar-page { display: none; }
@@ -555,9 +593,9 @@ body {
   .pager { gap: 2px; }
   .page-btn.search { min-width: 22px; }
   .page-info { font-size: 10px; }
+  .spotify-embed { height: 300px; }
 }
 
 @media (min-width: 641px) and (max-width: 1100px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
-  .album-set { grid-template-columns: repeat(2, 1fr); }
 }

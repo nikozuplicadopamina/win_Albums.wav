@@ -35,7 +35,9 @@
       if (!Array.isArray(data) || data.length === 0) {
         throw new Error('albums.json está vacío o el formato no es válido.');
       }
-      albums = data;
+      albums = data
+        .slice()
+        .sort((a, b) => (b.nuevo ? 1 : 0) - (a.nuevo ? 1 : 0));
       render();
     } catch (err) {
       renderError(err);
@@ -53,21 +55,17 @@
     const grid = document.createElement('div');
     grid.className = 'grid';
 
-    const nuevos = slice.filter((a) => a.nuevo);
-    const resto = slice.filter((a) => !a.nuevo);
-
-    if (nuevos.length) {
-      const set = document.createElement('div');
-      set.className = 'album-set';
-      const badge = document.createElement('span');
-      badge.className = 'album-set-badge';
-      badge.textContent = 'Nuevo';
-      set.appendChild(badge);
-      nuevos.forEach((a) => set.appendChild(createAlbumCard(a)));
-      grid.appendChild(set);
-    }
-
-    resto.forEach((a) => grid.appendChild(createAlbumCard(a)));
+    slice.forEach((album) => {
+      const card = createAlbumCard(album);
+      if (album.nuevo) {
+        card.classList.add('is-new');
+        const badge = document.createElement('span');
+        badge.className = 'nuevo-badge';
+        badge.textContent = 'Nuevo';
+        card.appendChild(badge);
+      }
+      grid.appendChild(card);
+    });
 
     content.appendChild(grid);
 
