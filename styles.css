@@ -62,7 +62,18 @@ body {
 }
 
 .explorer { flex: 1 1 auto; min-width: 0; }
-.sidebar { flex: 0 0 320px; display: flex; flex-direction: column; gap: 14px; }
+
+/* La columna no puede crecer más que el explorador: si no, la página
+   entera scrollea. El changelog se encoge y scrollea por dentro. */
+.sidebar {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-self: stretch;
+  max-height: calc(100vh - 28px);
+  min-height: 0;
+}
 
 /* ------------------------------------------------------------
    Biseles 3D clásicos (estructura real de Win98)
@@ -439,7 +450,7 @@ body {
   flex-direction: column;
   align-self: stretch;
   flex: 1 1 auto;
-  min-height: 120px;
+  min-height: 0;
   box-shadow:
     inset -1px -1px 0 var(--surface-black),
     inset 1px 1px 0 var(--surface-hi),
@@ -575,7 +586,7 @@ body {
 @media (max-width: 900px) {
   body { padding: 0; }
   .desktop { flex-direction: column; gap: 0; }
-  .sidebar { flex: 1 1 auto; width: 100%; order: 2; gap: 12px; }
+  .sidebar { flex: 1 1 auto; width: 100%; order: 2; gap: 12px; max-height: none; }
   .explorer { width: 100%; order: 1; max-height: 100vh; }
 }
 
