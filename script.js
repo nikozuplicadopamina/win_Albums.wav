@@ -52,7 +52,23 @@
     content.querySelectorAll('.grid').forEach((el) => el.remove());
     const grid = document.createElement('div');
     grid.className = 'grid';
-    slice.forEach((a) => grid.appendChild(createAlbumCard(a)));
+
+    const nuevos = slice.filter((a) => a.nuevo);
+    const resto = slice.filter((a) => !a.nuevo);
+
+    if (nuevos.length) {
+      const set = document.createElement('div');
+      set.className = 'album-set';
+      const badge = document.createElement('span');
+      badge.className = 'album-set-badge';
+      badge.textContent = 'Nuevo';
+      set.appendChild(badge);
+      nuevos.forEach((a) => set.appendChild(createAlbumCard(a)));
+      grid.appendChild(set);
+    }
+
+    resto.forEach((a) => grid.appendChild(createAlbumCard(a)));
+
     content.appendChild(grid);
 
     renderPager();

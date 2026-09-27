@@ -235,8 +235,41 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+}
+
+/* ---------- Conjunto de álbumes nuevos (outline agrupado) ---------- */
+.album-set {
+  position: relative;
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 10px 8px 8px;
+  outline: 2px solid #d83030;
+  outline-offset: 3px;
+}
+
+.album-set-badge {
+  position: absolute;
+  top: -11px;
+  left: -1px;
+  z-index: 1;
+  background: #d83030;
+  color: #ffffff;
+  font-family: var(--font-title);
+  font-weight: bold;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 1px 7px;
+  cursor: default;
+  box-shadow:
+    inset -1px -1px 0 var(--surface-black),
+    inset 1px 1px 0 var(--surface-hi),
+    inset -2px -2px 0 var(--surface-dark),
+    inset 2px 2px 0 var(--surface-mid);
 }
 
 .album {
@@ -505,6 +538,12 @@ body {
 
 @media (max-width: 640px) {
   .grid { grid-template-columns: 1fr; }
+  .album-set {
+    grid-template-columns: 1fr;
+    grid-column: 1 / -1;
+    padding: 9px 6px 6px;
+    outline-offset: 2px;
+  }
   .cover { width: 84px; height: 84px; }
   .title-bar-text { font-size: 10px; }
   .toolbar-page { display: none; }
@@ -520,4 +559,5 @@ body {
 
 @media (min-width: 641px) and (max-width: 1100px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
+  .album-set { grid-template-columns: repeat(2, 1fr); }
 }
