@@ -164,7 +164,7 @@
     "artista": "Alvaro Diaz",
     "genero": "Urbano",
     "anio": 2026,
-    "nuevo": true,
+    "nuevo": false,
     "color": "#b06891",
     "portada": "https://a1.mzstatic.com/r40/Music211/v4/53/3a/bd/533abda9-b144-defd-84d8-bc203757c32a/26UMGIM52886.rgb.jpg",
     "review": "Se ve en este no primer album que escucho de alvaro una faseta nueva, un concepto crudo que me encanta, donde nos hace pasar procesos amorosos como si se tratara de un proceso de cocina, increible",
@@ -175,10 +175,21 @@
     "artista": "gingerbee",
     "genero": "Indie",
     "anio": 2025,
-    "nuevo": true ,
+    "nuevo": false ,
     "color": "#b8915a",
     "portada": "https://a1.mzstatic.com/r40/Music211/v4/25/40/36/254036e0-322d-92fc-c556-4d66f9386605/artwork.jpg",
     "review": "Es un EP hermoso, me encanta su proceso de creación, donde en cada gira experimentaban temas ineditos y luego los pegaban en discord, simplemente increible",
     "link": "https://open.spotify.com/album/09cVN2phRh84MiWZ7lszU4"
+  },
+  {
+    "titulo": "t",
+    "artista": "Dylan Thom",
+    "genero": "Indie",
+    "anio": 2025,
+    "nuevo": true ,
+    "color": "#5e4937",
+    "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/71/ba/95/71ba9545-4d31-c95b-1f5c-5db4c298046a/893921.jpg/500x0w.webp",
+    "review": "Es el album debut de dylan y realmente es fascinante, es un sonido que jamás habia experimentado, otro gran descubrimiento de mi 2026.",
+    "link": "https://open.spotify.com/album/06ahNVQps5jb47nZ2978ZA"
   }
 ]
