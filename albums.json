@@ -25,6 +25,7 @@
     "genero": "Urbano",
     "anio": 2026,
     "color": "#0000FF",
+    "nuevo": true,
     "portada": "https://i.scdn.co/image/ab67616d000082c1d4798c7abe3ccd11d56936a1",
     "review": "es el tercer album de estudio de nsqk, realemnte el mejor de toda su carrera, supo mezclar tantos generos urbanos + electricos en un solo album sin mixearlos sino haciendolos notar por separado, como si fuera en convivencia.",
     "link": "https://open.spotify.com/intl-es/album/5CIFqAiWMZ4ZxS9BvUBC6q"
@@ -196,7 +197,7 @@
     "artista": "Dylan Thom",
     "genero": "Indie",
     "anio": 2025,
-    "nuevo": true ,
+    "nuevo": false ,
     "color": "#5e4937",
     "portada": "https://i.scdn.co/image/ab67616d000082c18a39a639ece32b3b94d221a5",
     "review": "Es el album debut de dylan y realmente es fascinante, es un sonido que jamás habia experimentado, otro gran descubrimiento de mi 2026.",
