@@ -2,12 +2,13 @@
   font-family: 'Marlett Local';
   src: local('Marlett');
 }
+/* Solo fuentes locales: si no está Fixedsys se cae a Lucida Console.
+   (Antes apuntaba a un .woff2 que no existe y llenaba la consola de 404.) */
 @font-face {
   font-family: 'Fixedsys Excelsior 3.01';
   src: local('Fixedsys Excelsior 3.01'),
     local('Fixedsys Excelsior'),
-    local('Fixedsys'),
-    url('fonts/fixedsys-excelsior.woff2') format('woff2');
+    local('Fixedsys');
 }
 
 :root {
@@ -34,6 +35,9 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Sin esto, un display:flex propio pisa el atributo hidden */
+[hidden] { display: none !important; }
+
 html { min-height: 100%; }
 
 body {
@@ -55,21 +59,25 @@ body {
 /* ---------- Layout horizontal ---------- */
 .desktop {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1600px;
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 18px;
 }
 
 .explorer { flex: 1 1 auto; min-width: 0; }
 
 /* La columna no puede crecer más que el explorador: si no, la página
    entera scrollea. El changelog se encoge y scrollea por dentro. */
+/* min-width: 0 es clave: sin esto el min-content de la barra de
+   direcciones (la URL de Spotify) inflaba la columna y desbordaba
+   el grid de álbumes por encima del changelog. */
 .sidebar {
-  flex: 0 0 320px;
+  flex: 0 0 340px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   align-self: stretch;
   max-height: calc(100vh - 28px);
   min-height: 0;
@@ -246,8 +254,8 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
   padding-top: 9px;
 }
 
@@ -276,6 +284,7 @@ body {
 }
 
 .album {
+  min-width: 0;
   background: var(--surface);
   padding: 8px;
   display: flex;
@@ -549,6 +558,135 @@ body {
 
 .spotify-embed:hover { filter: saturate(0.8) contrast(1.04); }
 
+/* ---------- Ventana Generador de letras ---------- */
+.lyrics {
+  flex: 0 0 330px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  max-height: calc(100vh - 28px);
+  min-height: 0;
+  background: var(--surface);
+  box-shadow:
+    inset -1px -1px 0 var(--surface-black),
+    inset 1px 1px 0 var(--surface-hi),
+    inset -2px -2px 0 var(--surface-dark),
+    inset 2px 2px 0 var(--surface-mid);
+}
+
+/* Controles fijos arriba; solo la lista de versos scrollea */
+.lyrics-body {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.lyrics-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-weight: bold;
+}
+
+.lyrics-field select,
+.lyrics-field input {
+  width: 100%;
+  font: inherit;
+  font-weight: normal;
+  padding: 2px 4px;
+  background: #ffffff;
+  border: 0;
+  box-shadow:
+    inset -1px -1px 0 var(--surface-hi),
+    inset 1px 1px 0 var(--surface-black),
+    inset -2px -2px 0 var(--surface-dark),
+    inset 2px 2px 0 var(--surface-dark);
+}
+
+.lyrics-field select:disabled,
+.lyrics-field input:disabled {
+  color: var(--surface-dark);
+  background: var(--surface);
+}
+
+.lyrics-source {
+  margin-top: -4px;
+  color: var(--text-dim);
+  font-size: 10px;
+  font-family: var(--font-mono);
+}
+
+.lyrics-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.lyrics-hint {
+  min-height: 26px;
+  color: var(--text-dim);
+  font-size: 10px;
+  font-style: italic;
+}
+
+.lyrics-lines {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 4px;
+  overflow-y: auto;
+  background: #ffffff;
+  box-shadow:
+    inset -1px -1px 0 var(--surface-hi),
+    inset 1px 1px 0 var(--surface-black),
+    inset -2px -2px 0 var(--surface-dark),
+    inset 2px 2px 0 var(--surface-dark);
+}
+
+.lyric-line {
+  padding: 2px 4px;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.lyric-line:hover { background: #ffffcc; }
+
+.lyric-line.selected { background: var(--navy); color: #ffffff; }
+
+.lyrics-quote {
+  padding: 4px 6px;
+  border: 1px dashed #999;
+  color: var(--text-dim);
+  font-size: 10px;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+.lyrics-manual {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: bold;
+}
+
+.lyrics-manual textarea {
+  padding: 4px;
+  border: 0;
+  resize: vertical;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  box-shadow:
+    inset -1px -1px 0 var(--surface-hi),
+    inset 1px 1px 0 var(--surface-black),
+    inset -2px -2px 0 var(--surface-dark),
+    inset 2px 2px 0 var(--surface-dark);
+}
+
 /* ---------- Message box de error ---------- */
 .msgbox {
   background: var(--surface);
@@ -583,11 +721,23 @@ body {
 /* ------------------------------------------------------------
    Responsive (móvil)
    ------------------------------------------------------------ */
+/* Sin ancho para 3 columnas: el explorador pasa arriba y las dos
+   ventanas laterales se reparten la fila de abajo. Se corta en 1360
+   para que las tarjetas nunca bajen de ~190px (antes se apretaban
+   y el grid se desbordaba entre 1181 y 1359). */
+@media (max-width: 1359px) {
+  .desktop { flex-wrap: wrap; }
+  .explorer { flex: 1 1 100%; }
+  .sidebar { flex: 1 1 320px; }
+  .lyrics { flex: 1 1 300px; }
+}
+
 @media (max-width: 900px) {
   body { padding: 0; }
-  .desktop { flex-direction: column; gap: 0; }
+  .desktop { flex-direction: column; flex-wrap: nowrap; gap: 0; }
+  .explorer { flex: 1 1 auto; width: 100%; order: 1; max-height: 100vh; }
   .sidebar { flex: 1 1 auto; width: 100%; order: 2; gap: 12px; max-height: none; }
-  .explorer { width: 100%; order: 1; max-height: 100vh; }
+  .lyrics { flex: 1 1 auto; width: 100%; order: 3; max-height: none; }
 }
 
 @media (max-width: 640px) {

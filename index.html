@@ -215,8 +215,94 @@
 
     </div>
 
+    <!-- Generador de letras -->
+    <section class="lyrics" aria-label="Generador de letras">
+      <div class="title-bar">
+        <svg class="title-bar-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <rect x="2" y="1" width="12" height="14" fill="#fff" stroke="#000" stroke-width="1" />
+          <path d="M4.5 5h7M4.5 8h7M4.5 11h4" stroke="#000" stroke-width="1" />
+        </svg>
+        <span class="title-bar-text">LETRAS.EXE - Generador de letras</span>
+        <div class="title-bar-controls">
+          <button type="button" aria-label="Minimizar">
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+              <path d="M1.5 7.2h7" stroke="#000" stroke-width="1" />
+            </svg>
+          </button>
+          <button type="button" aria-label="Maximizar">
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+              <rect x="1.6" y="1.6" width="6.8" height="6.8" fill="none" stroke="#000" stroke-width="1" />
+            </svg>
+          </button>
+          <button type="button" class="close" aria-label="Cerrar">
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+              <path d="M1.5 1.5L8.5 8.5M8.5 1.5L1.5 8.5" stroke="#000" stroke-width="1.4" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <nav class="menu-bar" aria-label="Menú del generador">
+        <span class="menu-item">Archivo</span>
+        <span class="menu-item">Edición</span>
+        <span class="menu-item">Ayuda</span>
+      </nav>
+
+      <div class="toolbar">
+        <svg class="dir-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <rect x="2" y="1" width="12" height="14" fill="#fff" stroke="#000" stroke-width="1" />
+          <path d="M4.5 5h7M4.5 8h7M4.5 11h4" stroke="#000" stroke-width="1" />
+        </svg>
+        <span class="toolbar-label">Dirección</span>
+        <div class="address-box">C:\LETRAS.EXE</div>
+      </div>
+
+      <div class="content lyrics-body">
+        <label class="lyrics-field">
+          <span>Álbum</span>
+          <select id="lyrics-album"></select>
+        </label>
+
+        <label class="lyrics-field">
+          <span>Canción</span>
+          <select id="lyrics-song"></select>
+        </label>
+
+        <label class="lyrics-field" id="lyrics-title-wrap" hidden>
+          <span>Escribe la canción</span>
+          <input type="text" id="lyrics-title" spellcheck="false" />
+        </label>
+
+        <div class="lyrics-actions">
+          <button type="button" class="btn" id="lyrics-fetch">Buscar letra</button>
+          <button type="button" class="btn" id="lyrics-image" disabled>Crear imagen</button>
+        </div>
+
+        <p class="lyrics-source" id="lyrics-source" hidden></p>
+        <p class="lyrics-hint" id="lyrics-status">Cargando álbumes…</p>
+
+        <div class="lyrics-lines" id="lyrics-lines" hidden></div>
+
+        <p class="lyrics-quote" id="lyrics-quote" hidden></p>
+
+        <label class="lyrics-manual" id="lyrics-manual-wrap" hidden>
+          <span>Pega la letra a mano</span>
+          <textarea id="lyrics-manual" rows="5" spellcheck="false"></textarea>
+          <button type="button" class="btn" id="lyrics-manual-use">Usar esta letra</button>
+        </label>
+      </div>
+
+      <div class="status-bar">
+        <div class="status-panel" id="lyrics-count">0 línea(s)</div>
+        <div class="status-panel status-rest">LETRAS.EXE</div>
+      </div>
+
+      <canvas id="lyrics-canvas" width="1200" height="1200" hidden></canvas>
+    </section>
+
   </div>
 
   <script src="script.js"></script>
+  <script src="lyrics.js"></script>
 </body>
 </html>
