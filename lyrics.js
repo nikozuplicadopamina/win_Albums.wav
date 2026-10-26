@@ -698,7 +698,7 @@
 
     const S = 1200;
     const ctx = canvas.getContext('2d');
-    const mono = '"Fixedsys Excelsior 3.01", Fixedsys, "Lucida Console", "Courier New", monospace';
+    const mono = '"Lucida Console", "Courier New", monospace';
     const ui = 'Tahoma, "MS Shell Dlg", "Microsoft Sans Serif", Arial, sans-serif';
 
     /* Escritorio */
@@ -790,12 +790,12 @@
     const subCab = artista && albumTxt ? artista + ' · ' + albumTxt : (artista || albumTxt);
 
     const portada = await cargarPortada(currentAlbum.portada);
-    const coverSize = 140;
+    const coverSize = 160;
     const gapIcono = 24;
     const cabeceraMax = innerW - coverSize - gapIcono;
 
-    let cabSize = 34;
-    const cabSizes = [34, 32, 30, 28, 26, 24, 22, 20];
+    let cabSize = 38;
+    const cabSizes = [38, 36, 34, 32, 30, 28, 26, 24, 22];
     for (let i = 0; i < cabSizes.length; i++) {
       cabSize = cabSizes[i];
       ctx.font = 'bold ' + cabSize + 'px ' + ui;
@@ -803,8 +803,8 @@
     }
     const cabTexto = recortar(ctx, tituloCab, cabeceraMax);
 
-    let subSize = 21;
-    const subSizes = [21, 20, 19, 18, 17, 16];
+    let subSize = 22;
+    const subSizes = [22, 21, 20, 19, 18, 17, 16];
     for (let i = 0; i < subSizes.length; i++) {
       subSize = subSizes[i];
       ctx.font = subSize + 'px ' + ui;
@@ -812,7 +812,7 @@
     }
     const subTexto = recortar(ctx, subCab, cabeceraMax);
 
-    const cabCY = bodyY + 82;
+    const cabCY = bodyY + 100;
     const coverY = cabCY - coverSize / 2;
     const textoX = innerX + coverSize + gapIcono;
 
@@ -822,25 +822,25 @@
       ctx.drawImage(portada, innerX + 3, coverY + 3, coverSize - 6, coverSize - 6);
       bevel(ctx, innerX, coverY, coverSize, coverSize, 'sunken', 3);
     } else {
-      dibujarNota(ctx, innerX + coverSize / 2 - 35, cabCY - 49, 98);
+      dibujarNota(ctx, innerX + coverSize / 2 - 40, cabCY - 55, 110);
     }
 
     ctx.fillStyle = '#000000';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
     ctx.font = 'bold ' + cabSize + 'px ' + ui;
-    ctx.fillText(cabTexto, textoX, cabCY - 21);
+    ctx.fillText(cabTexto, textoX, cabCY - 24);
     ctx.font = subSize + 'px ' + ui;
-    ctx.fillText(subTexto, textoX, cabCY + 23);
+    ctx.fillText(subTexto, textoX, cabCY + 26);
 
     /* Separador estilo ranura Win98 */
     ctx.fillStyle = BEVEL.dark;
-    ctx.fillRect(innerX, bodyY + 174, innerW, 2);
+    ctx.fillRect(innerX, bodyY + 196, innerW, 2);
     ctx.fillStyle = BEVEL.hi;
-    ctx.fillRect(innerX, bodyY + 176, innerW, 1);
+    ctx.fillRect(innerX, bodyY + 198, innerW, 1);
 
     /* --- Letra, cada línea pegada a la izquierda --- */
-    const areaTop = bodyY + 200;
+    const areaTop = bodyY + 222;
     const areaBottom = bodyY + bodyH - 48;
     const maxAlto = Math.max(60, areaBottom - areaTop);
 
