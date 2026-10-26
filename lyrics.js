@@ -301,42 +301,158 @@
     }
   }
 
-  /* ---------- Letra online ---------- */
-  async function buscarLetra(titulo, artista) {
-    // 1) LRCLIB: CORS abierto. Reintenta si el servidor está ocupado (503).
-    for (let intento = 0; intento < 3; intento++) {
-      try {
-        const qs = new URLSearchParams({ track_name: titulo, artist_name: artista });
-        const res = await fetch('https://lrclib.net/api/search?' + qs.toString());
-        if (res.status === 503) {
-          await sleep(800 * (intento + 1));
-          continue;
+  /* ---------- Letra online: cascada de proveedores ---------- */
+  /* Musixmatch necesita un "usertoken" válido de la app de escritorio.
+     Pega uno aquí y se probará como último recurso; vacío = se omite. */
+  const MM_TOKEN = '';
+
+  function normTxt(s) {
+    return String(s)
+      .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/\((?:feat|ft|con|prod)[^)]*\)|\[[^\]]*\]/g, ' ')
+      .replace(/\b(remaster(ed)?|deluxe|version|edit|intro|skit|oficial|official|video|visualizer|audio)\b/g, ' ')
+      .replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  function coincide(a, b) {
+    const x = normTxt(a);
+    const y = normTxt(b);
+    if (!x || !y) return false;
+    if (x === y || x.includes(y) || y.includes(x)) return true;
+    const tx = new Set(x.split(' '));
+    const ty = new Set(y.split(' '));
+    let comunes = 0;
+    tx.forEach((t) => { if (ty.has(t)) comunes++; });
+    return comunes / Math.max(tx.size, ty.size) >= 0.6;
+  }
+
+  function limpiarPista(s) {
+    return String(s)
+      .replace(/\((?:feat|ft|con)[^)]*\)/gi, ' ')
+      .replace(/\[[^\]]*\]/g, ' ')
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  async function conTimeout(url, ms) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), ms || 8000);
+    try {
+      return await fetch(url, { signal: ctrl.signal });
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function letraLRCLIB(titulo, artista) {
+    const titulos = [...new Set([titulo, limpiarPista(titulo)])];
+    for (const t of titulos) {
+      if (!t) continue;
+      for (let intento = 0; intento < 2; intento++) {
+        try {
+          const qs = new URLSearchParams({ track_name: t, artist_name: artista });
+          const res = await conTimeout('https://lrclib.net/api/search?' + qs.toString());
+          if (res.status === 503) {
+            await sleep(700 * (intento + 1));
+            continue;
+          }
+          if (!res.ok) break;
+          const data = await res.json();
+          const hit = Array.isArray(data)
+            ? data.find((d) => d && d.plainLyrics && d.plainLyrics.trim())
+            : null;
+          if (hit) return hit.plainLyrics;
+          break;
+        } catch (err) {
+          break;
         }
-        if (!res.ok) break;
-        const data = await res.json();
-        const hit = Array.isArray(data)
-          ? data.find((d) => d && d.plainLyrics && d.plainLyrics.trim())
-          : null;
-        if (hit) return hit.plainLyrics;
-        break;
-      } catch (err) {
-        break;
       }
     }
+    return null;
+  }
 
-    // 2) lyrics.ovh como respaldo.
+  async function letraLRCLIBLibre(titulo, artista) {
+    try {
+      const q = limpiarPista(titulo);
+      const url = 'https://lrclib.net/api/search?q=' +
+        encodeURIComponent(artista + ' ' + q);
+      const res = await conTimeout(url);
+      if (!res.ok) return null;
+      const data = await res.json();
+      const hit = Array.isArray(data) ? data.find((d) =>
+        d && d.plainLyrics && d.plainLyrics.trim() &&
+        coincide(q, d.trackName || d.name) &&
+        coincide(artista, d.artistName)) : null;
+      return hit ? hit.plainLyrics : null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  async function letraOvh(titulo, artista) {
     try {
       const url = 'https://api.lyrics.ovh/v1/' +
-        encodeURIComponent(artista) + '/' + encodeURIComponent(titulo);
-      const res = await fetch(url);
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.lyrics) return data.lyrics.replace(/\r/g, '');
-      }
+        encodeURIComponent(artista) + '/' + encodeURIComponent(limpiarPista(titulo));
+      const res = await conTimeout(url);
+      if (!res.ok) return null;
+      const data = await res.json();
+      return data && data.lyrics ? data.lyrics.replace(/\r/g, '') : null;
     } catch (err) {
-      /* sin respaldo */
+      return null;
     }
+  }
 
+  async function letraMusixmatch(titulo, artista) {
+    if (!MM_TOKEN) return null;
+    try {
+      const qs = new URLSearchParams({
+        format: 'json',
+        q_track: titulo,
+        q_artist: artista,
+        usertoken: MM_TOKEN,
+        app_id: 'web-desktop-app-v1.0'
+      });
+      const url = 'https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?' + qs.toString();
+      const res = await conTimeout(url);
+      if (!res.ok) return null;
+      const j = await res.json();
+      const calls = (j.message && j.message.body && j.message.body.macro_calls) || {};
+      const track = calls['matcher.track.get'] && calls['matcher.track.get'].message.body.track;
+      if (!track || !coincide(track.track_name, titulo) || !coincide(track.artist_name, artista)) {
+        return null;
+      }
+      const sub = calls['track.subtitles.get'] &&
+        calls['track.subtitles.get'].message.body.subtitle_list[0];
+      let texto = sub && sub.subtitle && sub.subtitle.subtitle_body;
+      if (!texto) {
+        const lyr = calls['track.lyrics.get'] && calls['track.lyrics.get'].message.body.lyrics;
+        texto = lyr && lyr.lyrics_body;
+      }
+      if (!texto) return null;
+      return texto
+        .replace(/\[\d{1,2}:\d{2}(?:\.\d{1,2})?\]/g, ' ')
+        .replace(/\*+\s*This Lyrics is NOT for Commercial use[\s\S]*$/i, '')
+        .trim();
+    } catch (err) {
+      return null;
+    }
+  }
+
+  const PROVEEDORES = [
+    { nombre: 'LRCLIB', fn: letraLRCLIB },
+    { nombre: 'LRCLIB', fn: letraLRCLIBLibre },
+    { nombre: 'lyrics.ovh', fn: letraOvh },
+    { nombre: 'Musixmatch', fn: letraMusixmatch }
+  ];
+
+  async function buscarLetra(titulo, artista) {
+    for (const p of PROVEEDORES) {
+      try {
+        const letra = await p.fn(titulo, artista);
+        if (letra && letra.trim()) return { letra, fuente: p.nombre };
+      } catch (err) {
+        /* probar el siguiente proveedor */
+      }
+    }
     return null;
   }
 
@@ -876,10 +992,12 @@
     setStatus('Buscando letra de "' + pista + '"…');
 
     try {
-      const letra = await buscarLetra(pista, currentAlbum.artista);
-      if (letra) {
-        pintarLetra(letra);
+      const res = await buscarLetra(pista, currentAlbum.artista);
+      if (res) {
+        pintarLetra(res.letra);
+        setSource('Letra vía ' + res.fuente);
       } else {
+        setSource('');
         setStatus('No encontré la letra online. Pégala a mano abajo.');
         if (manualWrap) manualWrap.hidden = false;
         if (manualInput) manualInput.focus();
